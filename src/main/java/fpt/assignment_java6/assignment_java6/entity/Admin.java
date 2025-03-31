@@ -1,11 +1,12 @@
 package fpt.assignment_java6.assignment_java6.entity;
 
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.time.LocalDateTime;
-import java.util.Date;
-import java.util.List;
 
 
 @Getter
@@ -13,12 +14,12 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "customers")
-public class Customer {
+@Table(name = "admins")
+public class Admin {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "customer_id")
-    private Long customerId;
+    @Column(name = "admin_id")
+    private Long adminId;
 
     @Column(name = "full_name", nullable = false)
     private String fullName;
@@ -26,11 +27,8 @@ public class Customer {
     @Column(name = "email", nullable = false, unique = true)
     private String email;
 
-    @Column(name = "phone")
-    private String phone;
-
-    @Column(name = "address")
-    private String address;
+    @Column(name = "username")
+    private String username;
 
     @Column(name = "created_at")
     private LocalDateTime createdAt;
