@@ -28,7 +28,7 @@ public class OrderController {
         model.addAttribute("orderDetailsList", orderDetailsList);
         List<Orders> ordersList = ordersService.getAllOrders();
         model.addAttribute("ordersList", ordersList);
-        return "orders";
+        return "Order/orders";
     }
 
     // Hiển thị chi tiết đơn hàng
@@ -43,7 +43,7 @@ public class OrderController {
 
             model.addAttribute("order", order);
             model.addAttribute("orderDetailsList", orderDetailsList);
-            return "order-detail"; // Trả về file order-detail.html
+            return "Order/order-detail"; // Trả về file order-detail.html
         } else {
             return "redirect:/admin/orders"; // Nếu không tìm thấy, quay lại danh sách
         }
