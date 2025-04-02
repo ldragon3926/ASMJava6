@@ -1,31 +1,32 @@
 package fpt.assignment_java6.assignment_java6.service;
 
-import fpt.assignment_java6.assignment_java6.entity.Products;
-import fpt.assignment_java6.assignment_java6.repository.ProductsRepository;
+import fpt.assignment_java6.assignment_java6.entity.Product;
+import fpt.assignment_java6.assignment_java6.repository.ProductRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class ProductsService {
     @Autowired
-    private ProductsRepository productsRepository;
-
-    public List<Products> getAllProducts() {
-        return productsRepository.findAll();
+    private ProductRepo productRepo;
+    public List<Product> getAllProducts() {
+        return productRepo.findAll();
     }
 
-    public Optional<Products> getProductById(Long id) {
-        return productsRepository.findById(id);
+    public Product getById(Integer id) {
+        return productRepo.findById(id).orElse(null);
     }
 
-    public Products saveProduct(Products product) {
-        return productsRepository.save(product);
+    public void save(Product product) {
+        productRepo.save(product);
+    }
+    public Boolean checkIfProductExist(String productName) {
+        return productRepo.findAll().stream().noneMatch(product -> product.getName().equalsIgnoreCase(productName.trim()));
     }
 
-    public void deleteProduct(Long id) {
-        productsRepository.deleteById(id);
+    public void delete(Integer id) {
+        productRepo.deleteById(id);
     }
 }

@@ -36,5 +36,5 @@ public class OrderDetails {
 
     @ManyToOne
     @JoinColumn(name = "product_id", insertable = false, updatable = false)
-    private Products product;
+    private Product product;
 }

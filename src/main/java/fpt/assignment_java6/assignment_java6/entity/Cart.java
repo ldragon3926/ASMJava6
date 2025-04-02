@@ -38,5 +38,5 @@ public class Cart {
 
     @ManyToOne
     @JoinColumn(name = "product_id", insertable = false, updatable = false)
-    private Products product;
+    private Product product;
 }

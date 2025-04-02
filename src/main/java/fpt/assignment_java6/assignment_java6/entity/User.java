@@ -1,33 +1,50 @@
 package fpt.assignment_java6.assignment_java6.entity;
 
-import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.ColumnDefault;
+import org.hibernate.annotations.Nationalized;
 
-import java.math.BigDecimal;
-import java.time.LocalDateTime;
-import java.util.Date;
-import java.util.List;
+import java.time.Instant;
 
 @Getter
 @Setter
-@AllArgsConstructor
-@NoArgsConstructor
 @Entity
 @Table(name = "users")
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long userId;
+    @Column(name = "user_id", nullable = false)
+    private Integer id;
 
-    @Column(name = "email")
+    @Size(max = 100)
+    @NotNull
+    @Nationalized
+    @Column(name = "email", nullable = false, length = 100)
     private String email;
 
-    @Column(name = "password_hash")
+    @Size(max = 255)
+    @NotNull
+    @Nationalized
+    @Column(name = "password_hash", nullable = false)
     private String passwordHash;
 
-    @Column(name = "role")
+    @Size(max = 20)
+    @Nationalized
+    @ColumnDefault("N'user'")
+    @Column(name = "role", length = 20)
     private String role;
+
+    @ColumnDefault("getdate()")
+    @Column(name = "created_at")
+    private Instant createdAt;
+
 }
