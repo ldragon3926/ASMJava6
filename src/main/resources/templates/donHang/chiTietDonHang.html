@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Chi Tiết Đơn Hàng</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+        }
+        .sidebar {
+            width: 250px;
+            background-color: #212529;
+            color: white;
+            flex-shrink: 0;
+            height: 100vh;
+            overflow-y: auto;
+        }
+
+        .content {
+            flex: 1;
+            padding: 30px;
+            overflow-y: auto;
+            background-color: #f8f9fa;
+            min-height: 100vh;
+        }
+
+        .table th {
+            background-color: #f1f1f1;
+        }
+    </style>
+</head>
+<body>
+
+<!-- Sidebar -->
+<div class="sidebar" th:replace="~{fragments/sidebarAD}"></div>
+
+<!-- Nội dung chính -->
+<div class="content">
+    <a th:href="@{/admin/orders}" class="btn btn-danger mb-4">
+        <i class="bi bi-arrow-left-circle"></i> Quay lại danh sách
+    </a>
+
+    <form th:action="@{/admin/orders/update}" method="post" class="row g-3">
+        <input type="hidden" name="orderId" th:value="${order.orderId}"/>
+
+        <h4 class="text-warning">📦 Thông tin đơn hàng</h4>
+
+        <div class="col-md-6">
+            <label class="form-label">Khách hàng</label>
+            <input type="text" class="form-control" th:value="${order.customer.fullName}" readonly>
+        </div>
+
+        <div class="col-md-6">
+            <label class="form-label">Số điện thoại</label>
+            <input type="text" class="form-control" th:value="${order.customer.phone}" readonly>
+        </div>
+
+        <div class="col-md-6">
+            <label class="form-label">Trạng thái</label>
+            <select class="form-select" name="status">
+                <option th:selected="${order.status == 'PENDING'}" value="PENDING">Chờ xác nhận</option>
+                <option th:selected="${order.status == 'SHIPPING'}" value="SHIPPING">Đang giao</option>
+                <option th:selected="${order.status == 'COMPLETED'}" value="COMPLETED">Hoàn thành</option>
+                <option th:selected="${order.status == 'CANCELLED'}" value="CANCELLED">Đã hủy</option>
+            </select>
+        </div>
+
+        <div class="col-md-6">
+            <label class="form-label">Ngày đặt</label>
+            <input type="text" class="form-control"
+                   th:value="${#temporals.format(order.orderDate, 'dd/MM/yyyy')}" readonly>
+        </div>
+
+        <div class="col-md-6">
+            <label class="form-label">Tổng tiền</label>
+            <input type="text" class="form-control"
+                   th:value="${#numbers.formatDecimal(order.totalAmount, 0, 'COMMA', 0, 'POINT')} + ' VND'" readonly>
+        </div>
+
+        <div class="col-md-12">
+            <label class="form-label">Địa chỉ giao hàng</label>
+            <textarea class="form-control" name="shippingAddress" rows="3"
+                      th:text="${order.shippingAddress}"></textarea>
+        </div>
+
+        <div class="col-12 text-end">
+            <button type="submit" class="btn btn-success">
+                <i class="bi bi-save2"></i> Lưu
+            </button>
+        </div>
+    </form>
+
+    <h5 class="mt-5 text-warning">🛒 Sản phẩm trong đơn hàng</h5>
+    <div class="table-responsive">
+        <table class="table table-bordered align-middle text-center">
+            <thead>
+            <tr>
+                <th>Tên sản phẩm</th>
+                <th>Hình ảnh</th>
+                <th>Giá</th>
+                <th>Số lượng</th>
+                <th>Thành tiền</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="detail : ${orderDetailsList}">
+                <td th:text="${detail.product.name}">Tên sản phẩm</td>
+                <td>
+                    <img th:src="@{${detail.product.imageUrl}}" width="80" height="80" alt="Ảnh sản phẩm">
+                </td>
+                <td th:text="${#numbers.formatDecimal(detail.price, 0, 'COMMA', 0, 'POINT')} + ' VND'"></td>
+                <td th:text="${detail.quantity}"></td>
+                <td th:text="${#numbers.formatDecimal(detail.quantity * detail.price, 0, 'COMMA', 0, 'POINT')} + ' VND'"></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

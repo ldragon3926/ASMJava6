@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Farmers Market</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
+    <style>
+        body {
+            background-color: #f8f9fa;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        /* Điều chỉnh container chính để chứa cả sidebar và phần sản phẩm */
+        .main-container {
+            display: flex;
+            margin-top: 20px;
+        }
+
+        /* Sidebar nằm bên trái */
+        .sidebar {
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            width: 250px;  /* Kích thước sidebar */
+            position: sticky;
+            top: 20px;
+        }
+
+        .sidebar h5 {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: #007bff;
+            margin-bottom: 20px;
+        }
+
+        .sidebar .list-group-item {
+            font-size: 1.1rem;
+            padding: 15px 20px;
+            border: none;
+            background-color: #f8f9fa;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        .sidebar .list-group-item:hover {
+            background-color: #007bff;
+            color: #ffffff;
+        }
+
+        .sidebar .dropdown-menu {
+            width: 260px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Phần sản phẩm */
+        .product-container {
+            flex-grow: 1;  /* Cho phép phần sản phẩm chiếm không gian còn lại */
+            padding: 20px;
+        }
+
+        .product img {
+            max-height: 150px;
+            object-fit: cover;
+        }
+
+        .discount {
+            background-color: #ffc107;
+            color: #fff;
+            font-weight: bold;
+            border-radius: 5px;
+            padding: 2px 5px;
+        }
+
+        /* Footer */
+        footer {
+            background-color: #343a40;
+            color: white;
+            text-align: center;
+            padding: 10px 0;
+            margin-top: auto;
+        }
+
+    </style>
+</head>
+<body>
+
+<!-- Sử dụng fragment cho Header -->
+<div th:replace="~{fragments/header}"></div>
+
+<!-- Content -->
+<div class="container mt-4 main-container">
+    <!-- Sử dụng fragment cho Sidebar -->
+    <div th:replace="~{fragments/sidebar}"></div>
+
+    <!-- Danh sách sản phẩm -->
+    <div class="product-container">
+        <h4>Trái Cây Nhập</h4>
+        <div class="row">
+            <div class="col-md-3 text-center product">
+                <img src="https://via.placeholder.com/150x150" class="img-fluid" alt="Táo">
+                <p class="fw-bold text-danger">50.000 VND</p>
+                <p>Táo đỏ</p>
+                <p class="text-muted">Đã bán: 200</p>
+                <span class="discount">Giảm 10%</span>
+            </div>
+            <div class="col-md-3 text-center product">
+                <img src="https://via.placeholder.com/150x150" class="img-fluid" alt="Cam">
+                <p class="fw-bold text-danger">30.000 VND</p>
+                <p>Cam Sành</p>
+                <p class="text-muted">Đã bán: 150</p>
+                <span class="discount">Giảm 5%</span>
+            </div>
+            <div class="col-md-3 text-center product">
+                <img src="https://via.placeholder.com/150x150" class="img-fluid" alt="Chuối">
+                <p class="fw-bold text-danger">20.000 VND</p>
+                <p>Chuối chín</p>
+                <p class="text-muted">Đã bán: 300</p>
+                <span class="discount">Giảm 15%</span>
+            </div>
+            <div class="col-md-3 text-center product">
+                <img src="https://via.placeholder.com/150x150" class="img-fluid" alt="Lê">
+                <p class="fw-bold text-danger">60.000 VND</p>
+                <p>Lê Nhật</p>
+                <p class="text-muted">Đã bán: 100</p>
+                <span class="discount">Giảm 20%</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Sử dụng fragment cho Footer -->
+<div th:replace="~{fragments/footer}"></div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

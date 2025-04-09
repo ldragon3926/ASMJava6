@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <style>
+        /* Sidebar */
+        .sidebar {
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            width: 250px;
+            position: sticky;
+            top: 20px;
+            z-index: 1; /* Đảm bảo sidebar luôn ở trên */
+        }
+
+        /* Tiêu đề danh mục */
+        .sidebar h5 {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: #007bff;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+        }
+
+        /* Danh mục items */
+        .sidebar .list-group-item {
+            font-size: 1.1rem;
+            padding: 15px 20px;
+            border: none;
+            background-color: #f8f9fa;
+            color: #333;
+            border-radius: 5px;
+            transition: background-color 0.3s, color 0.3s, transform 0.2s;
+            margin-bottom: 10px;
+        }
+
+        /* Hiệu ứng hover cho item */
+        .sidebar .list-group-item:hover {
+            background-color: #007bff;
+            color: #fff;
+            transform: translateX(5px); /* Đẩy nhẹ item sang phải khi hover */
+        }
+
+        /* Icon trong danh mục */
+        .sidebar .list-group-item i {
+            margin-right: 10px;
+            font-size: 1.4rem; /* Tăng kích thước icon */
+        }
+
+        /* Danh mục dropdown */
+        .sidebar .dropdown-toggle {
+            color: #333;
+            font-weight: bold;
+            font-size: 1.1rem;
+        }
+
+        .sidebar .dropdown-menu {
+            width: 260px; /* Đảm bảo dropdown menu không tràn ra ngoài */
+            background-color: #f8f9fa;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            z-index: 10; /* Đảm bảo dropdown không bị che khuất */
+        }
+
+        .sidebar .dropdown-menu a {
+            font-size: 1rem;
+            padding: 10px 15px;
+            color: #333;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+
+        .sidebar .dropdown-menu a:hover {
+            background-color: #007bff;
+            color: #fff;
+        }
+    </style>
+
+
+</head>
+<body>
+<div th:fragment="sidebar">
+    <div class="col-md-3 sidebar">
+        <h5>DANH MỤC</h5>
+        <ul class="list-group">
+            <!-- Khuyến Mãi Hot -->
+            <li class="list-group-item"><i class="bi bi-fire"></i> Khuyến Mãi Hot</li>
+
+            <!-- Giỏ Trái Cây -->
+            <li class="list-group-item dropdown">
+                <a class="dropdown-toggle" href="#" data-bs-toggle="dropdown"><i class="bi bi-basket"></i> Giỏ Trái Cây</a>
+                <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" href="#">Hộp Quà Trái Cây</a></li>
+                    <li><a class="dropdown-item" href="#">Giỏ Trái Cây</a></li>
+                </ul>
+            </li>
+
+            <!-- Quà Tặng Cao Cấp -->
+            <li class="list-group-item dropdown">
+                <a class="dropdown-toggle" href="#" data-bs-toggle="dropdown"><i class="bi bi-gift"></i> Quà Tặng Cao Cấp</a>
+                <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" href="#">Giỏ Quà Tặng</a></li>
+                    <li><a class="dropdown-item" href="#">Combo Quà Tặng</a></li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+</div>
+
+</body>
+</html>

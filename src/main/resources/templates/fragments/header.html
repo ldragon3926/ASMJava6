@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <style>
+        .navbar {
+            background-color: #007bff;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .navbar .navbar-brand {
+            color: #fff;
+            font-weight: 600;
+            font-size: 1.5rem;
+        }
+
+        .navbar .nav-link {
+            color: #fff;
+            font-size: 1.1rem;
+            padding: 10px 20px;
+            transition: color 0.3s;
+        }
+
+        .navbar .nav-link:hover {
+            color: #f8f9fa;
+            background-color: #0056b3;
+            border-radius: 5px;
+        }
+
+        .navbar .navbar-toggler-icon {
+            background-color: #fff;
+        }
+    </style>
+    <style>
+        .cart-dropdown {
+            position: relative;
+        }
+
+        .cart-popup {
+            position: absolute;
+            right: 0;
+            top: 100%;
+            width: 300px;
+            background-color: #fff;
+            border: 1px solid #ccc;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            z-index: 1000;
+            display: none;
+            padding: 10px;
+        }
+
+        .cart-dropdown:hover .cart-popup {
+            display: block;
+        }
+
+        .cart-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 5px 0;
+            border-bottom: 1px solid #eee;
+        }
+
+        .cart-item img {
+            width: 40px;
+            height: 40px;
+            object-fit: cover;
+            margin-right: 10px;
+        }
+
+        .cart-total {
+            font-weight: bold;
+            text-align: right;
+            margin-top: 10px;
+        }
+
+        .cart-popup .btn {
+            width: 100%;
+            margin-top: 10px;
+        }
+    </style>
+
+</head>
+<body>
+<div th:fragment="header">
+    <nav class="navbar navbar-expand-lg navbar-light">
+        <div class="container">
+            <a class="navbar-brand" href="/">🍏 FruitShop</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="/products">Sản phẩm</a></li>
+
+                    <li class="nav-item cart-dropdown">
+                        <a class="nav-link position-relative" href="/cart">
+                            🛒 Giỏ hàng
+                            <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger"
+                                  th:text="${cartCount}"
+                                  th:if="${cartCount > 0}">
+        </span>
+                        </a>
+                        <!-- Popup giỏ hàng -->
+                        <div class="cart-popup">
+                            <div th:if="${cartItems != null}">
+                                <div th:each="item : ${cartItems}" class="cart-item">
+                                    <img th:src="@{${item.imageUrl}}" alt="ảnh" />
+                                    <div>
+                                        <div th:text="${item.name}">Tên sản phẩm</div>
+                                        <div th:text="${item.price + '₫'}">Giá</div>
+                                    </div>
+                                </div>
+                                <div class="cart-total">
+                                    Tổng: <span th:text="${totalPrice}">0₫</span>
+                                </div>
+                                <a href="/cart" class="btn btn-success">Xem giỏ hàng</a>
+                                <a href="/checkout" class="btn btn-primary">Thanh toán</a>
+                            </div>
+                            <div th:if="${cartItems == null || #lists.isEmpty(cartItems)}">
+                                Giỏ hàng trống
+                            </div>
+                        </div>
+                    </li>
+
+                    </li>
+
+                    <li class="nav-item"><a class="nav-link" href="/login">🔑 Đăng nhập</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+</div>
+</body>
+</html>

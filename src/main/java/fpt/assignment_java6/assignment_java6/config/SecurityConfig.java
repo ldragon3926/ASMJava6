@@ -69,7 +69,7 @@ public class SecurityConfig {
 httpSecurity.authorizeHttpRequests(
 req -> req.requestMatchers("/admin/**").hasRole("ADMIN")
                 .anyRequest().permitAll()
-        ).formLogin(login ->login.loginProcessingUrl("/login"));
+        ).formLogin(login ->login.loginProcessingUrl("/login").defaultSuccessUrl("/admin/view", true));
 
         return httpSecurity.build();
     }

@@ -1,5 +1,4 @@
 package fpt.assignment_java6.assignment_java6.service;
-
 import fpt.assignment_java6.assignment_java6.entity.Products;
 import fpt.assignment_java6.assignment_java6.repository.ProductsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,5 +26,10 @@ public class ProductsService {
 
     public void deleteProduct(Long id) {
         productsRepository.deleteById(id);
+    }
+
+    public Products findById(Long id) {
+        Optional<Products> optionalProduct = productsRepository.findById(id);
+        return optionalProduct.orElse(null);
     }
 }

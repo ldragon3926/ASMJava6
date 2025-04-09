@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Quản lý Sản phẩm</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css"/>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        .sidebar {
+            width: 250px;
+            background-color: #212529;
+            color: white;
+            flex-shrink: 0;
+            height: 100vh;
+            overflow-y: auto;
+        }
+
+        .content {
+            flex-grow: 1;
+            background-color: #f8f9fa;
+            padding: 20px;
+            overflow-y: auto;
+        }
+
+        .header-bar {
+            background-color: #e91e63;
+            color: #212529;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            padding: 15px 25px;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+
+        .search-bar .btn-add {
+            background-color: #0d6efd;
+            color: white;
+        }
+
+        .search-bar input {
+            width: 250px;
+        }
+
+        .img-thumbnail {
+            object-fit: cover;
+        }
+    </style>
+</head>
+<body>
+
+<!-- Sidebar -->
+<div class="sidebar" th:replace="~{fragments/sidebarAD}"></div>
+
+<!-- Main content -->
+<div class="content">
+    <!-- Tiêu đề -->
+    <div class="header-bar">
+        DANH SÁCH SẢN PHẨM
+    </div>
+
+    <!-- Tìm kiếm & Thêm -->
+    <div class="search-bar d-flex justify-content-between align-items-center mb-4">
+        <!-- Nút thêm ở bên trái -->
+        <a th:href="@{/admin/products/add}" class="btn btn-add">
+            <i class="bi bi-plus-circle me-1"></i> Thêm sản phẩm
+        </a>
+
+        <!-- Tìm kiếm bên phải -->
+        <div class="d-flex gap-2">
+            <input type="text" class="form-control" placeholder="Tìm sản phẩm...">
+            <button class="btn btn-success"><i class="bi bi-search"></i></button>
+        </div>
+    </div>
+
+    <!-- Bảng sản phẩm -->
+    <div class="table-responsive">
+        <table class="table table-bordered table-hover text-center align-middle">
+            <thead class="table-light">
+            <tr>
+                <th>STT</th>
+                <th>Tên sản phẩm</th>
+                <th>Hình ảnh</th>
+                <th>Giá</th>
+                <th>Tồn kho</th>
+                <th>Đơn vị</th>
+                <th>Loại</th>
+                <th>Thao tác</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="product, iter : ${listProduct}">
+                <td th:text="${iter.count}"></td>
+                <td th:text="${product.name}">Tên</td>
+                <td>
+                    <img th:src="@{${product.imageUrl}}" alt="image" class="img-thumbnail" style="width: 80px; height: 80px;">
+                </td>
+                <td th:text="${#numbers.formatDecimal(product.price, 0, 'COMMA', 0, 'POINT')} + ' VND'">0</td>
+                <td th:text="${product.stock}">0</td>
+                <td th:text="${product.unit}">kg</td>
+                <td th:text="${product.category.name}">Trái cây</td>
+                <td>
+                    <a th:href="@{'/admin/products/edit/' + ${product.productId}}" class="btn btn-sm btn-warning me-1">
+                        <i class="bi bi-pencil-square"></i> Sửa
+                    </a>
+                    <a th:href="@{'/admin/products/delete/' + ${product.productId}}"
+                       class="btn btn-sm btn-danger"
+                       onclick="return confirm('Bạn có chắc chắn muốn xóa sản phẩm này không?');">
+                        <i class="bi bi-trash"></i> Xóa
+                    </a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+</body>
+</html>
